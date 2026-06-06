@@ -330,12 +330,13 @@ def run_markowitz(returns_df: pd.DataFrame, n_sims: int, budget: float,
 
 # ─── CHART HELPERS ────────────────────────────────────────────────────────────
 def _layout(**kw):
-    return dict(
+    base = dict(
         paper_bgcolor=BG, plot_bgcolor=BG,
         font=dict(family="Inter", color=FC),
         margin=dict(l=10, r=10, t=48, b=10),
-        **kw,
     )
+    base.update(kw)
+    return base
 
 
 def chart_frontier(sim_df, metrics):
@@ -488,14 +489,14 @@ def chart_map(terr_df):
     fig.update_geos(
         scope="north america",
         center=dict(lat=23.6, lon=-102.5),
-        projection_scale=4.8,
+        projection=dict(scale=4.8),
         lataxis_range=[14, 33], lonaxis_range=[-120, -85],
-        showland=True,       landcolor="rgba(10,22,40,0.9)",
-        showocean=True,      oceancolor="rgba(8,18,35,0.7)",
-        showcoastlines=True, coastlinecolor="rgba(42,157,143,0.38)",
-        showframe=False,     bgcolor="rgba(0,0,0,0)",
-        showborder=True,     bordercolor="rgba(42,157,143,0.22)",
-        showsubunits=True,   subunitcolor="rgba(42,157,143,0.15)",
+        showland=True,        landcolor="rgba(10,22,40,0.9)",
+        showocean=True,       oceancolor="rgba(8,18,35,0.7)",
+        showcoastlines=True,  coastlinecolor="rgba(42,157,143,0.38)",
+        showframe=False,      bgcolor="rgba(0,0,0,0)",
+        showcountries=True,   countrycolor="rgba(42,157,143,0.22)",
+        showsubunits=True,    subunitcolor="rgba(42,157,143,0.15)",
     )
     fig.update_layout(
         title=dict(text="Mapa de Ventas Territoriales — México (32 estados)", font=dict(size=14, color="#bdd8e8")),
